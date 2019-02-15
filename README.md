@@ -26,24 +26,24 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
-We learned about Express Routing which helps decide which request handler function is run based on the URL visited and the HTTP method used.  We also learned about express middleware, which
-are functions that receive the request, response and potentially other inputs, and operate on them before returning the response or calling the next middleware in the chain.
+*We learned about Express Routing which helps decide which request handler function is run based on the URL visited and the HTTP method used.  We also learned about express middleware, which
+are functions that receive the request, response and potentially other inputs, and operate on them before returning the response or calling the next middleware in the chain.*
 
 - [ ] Describe Middleware?
 
- Middleware in the express context are simply functions that receive the request and response (and sometimes an error or next parameter) and perform some type of operation on those inputs before returning a repsponse or sending them down the chain to the next middleware.
+ *Middleware in the express context are simply functions that receive the request and response (and sometimes an error or next parameter) and perform some type of operation on those inputs before returning a repsponse or sending them down the chain to the next middleware.*
 
 - [ ] Describe a Resource?
 
- A resource is the target of an HTTP request.  It can be any type of file or data. We perform CRUD operations on resources and can define them by their universal resource identifier (URI) and their universal resource locator (URL)
+ *A resource is the target of an HTTP request.  It can be any type of file or data. We perform CRUD operations on resources and can define them by their universal resource identifier (URI) and their universal resource locator (URL)*
 
 - [ ] What can the API return to help clients know if a request was successful?
 
-The API can return a few things to help the client know the request was successful.  First, it can send a status code in the 200's indication a successful request.  Secondly, it can send a JSON back with the request data in a JSON format, with a key-value pair indicating the successful request/response.
+*The API can return a few things to help the client know the request was successful.  First, it can send a status code in the 200's indication a successful request.  Secondly, it can send a JSON back with the request data in a JSON format, with a key-value pair indicating the successful request/response.*
 
 - [ ] How can we partition our application into sub-applications?
 
-We can partition our app into sub-app's by using certain features of Express especially the Router.  Instead of having all of our server code lying in the central index.js file, we can break the file into multiple partitions.  The main index.js file will simply initialize the server and listen on a pre-defined port for HTTP traffic.  Each group of resources can then have their own router file, and we can import those routes in a server.js file which can handle all of our middleware (including the routes/request handlers).
+*We can partition our app into sub-app's by using certain features of Express especially the Router.  Instead of having all of our server code lying in the central index.js file, we can break the file into multiple partitions.  The main index.js file will simply initialize the server and listen on a pre-defined port for HTTP traffic.  Each group of resources can then have their own router file, and we can import those routes in a server.js file which can handle all of our middleware (including the routes/request handlers).*
 
 ## Project Setup
 
