@@ -58,10 +58,7 @@ router.delete('/:id', (req, res) => {
             if (!project) {
                 res.status(404).json({ message: "The project with the specified id does not exist" });
             } else {
-                Projects.remove(id)
-                    .then(project => {
-                        res.status(204).end();
-                    })
+                res.status(204).end();
             }
         })
         .catch(err => {

@@ -47,8 +47,7 @@ router.get('/:projId/:actionId', (req, res) => {
         })
 })
 
-router.post('/:projId', (req, res) => {
-    const id = req.params.projId;
+router.post('/', (req, res) => {
     const { project_id, description, notes } = req.body;
     if (!project_id || !description || !notes) {
         res.status(404).json({message: "Please provide project_id, description, and notes" });
@@ -59,6 +58,61 @@ router.post('/:projId', (req, res) => {
             })
             .catch(err => {
                 res.status(500).json({ error: "Error adding action" });
+            })
+    }
+})
+
+router.delete('/:projId/:id', (req, res) => {
+    const projId = req.params.projId;
+    const actionId = req.params.id;
+    Projects.getProjectActions(projId)
+        .then(actions => {
+            if (actions.length === 0) {
+                res.status(404).json({ message: `No actions for project ${projId}` });
+            } else {
+                Actions.remove(actionId)
+                    .then(action => {
+                        if (!action) {
+                            res.status(404).json({ message: `Action ${actionId} from project ${projId} doesn't exist` });
+                        } else {
+                            res.status(204).end()
+                        }
+                    })
+                    .catch(err => {
+                        res.status(500).json({ error: "Error removing action" });
+                    })
+            }
+        })
+})
+
+router.put('/:projId/:actionId', (req, res) => {
+    const projId = req.params.projId;
+    const actionId = req.params.actionId;
+    const { project_id, description, notes } = req.body;
+    if (!project_id || !description || !notes) {
+        res.status(404).json({message: "Please provide project_id, description, and notes" });
+    } else {
+        Projects.getProjectActions(projId)
+            .then(actions => {
+                console.log(actions);
+                if (actions.length === 0) {
+                    res.status(404).json({ message: `No actions for project ${projId}` });
+                } else {
+                    Actions.update(actionId, req.body)
+                        .then(action => {
+                            if (!action) {
+                                res.status(404).json({ message: `There is no action ${actionId} for project ${projId} `});
+                            } else {
+                                res.status(200).json(action)
+                            }
+                        })
+                        .catch(err => {
+                            res.status(500).json({ error: `Error retrieving actions for project ${projId}` });
+                        })
+                }
+            })
+            .catch(err => {
+                res.status(500).json({ error: "Error retrieving actions" });
             })
     }
 })
