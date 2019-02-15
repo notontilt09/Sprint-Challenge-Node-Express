@@ -6,8 +6,8 @@ const Projects = require('../data/helpers/projectModel.js');
 const router = express.Router();
 
 // GET all actions for specified project id
-router.get('/:id', (req, res) => {
-    const id = req.params.id
+router.get('/:projId', (req, res) => {
+    const id = req.params.projId
     Projects.getProjectActions(id)
         .then(actions => {
             if (actions.length === 0) {
@@ -45,6 +45,22 @@ router.get('/:projId/:actionId', (req, res) => {
         .catch(err => {
             res.status(500).json({ error: "Error retrieving project actions"})
         })
+})
+
+router.post('/:projId', (req, res) => {
+    const id = req.params.projId;
+    const { project_id, description, notes } = req.body;
+    if (!project_id || !description || !notes) {
+        res.status(404).json({message: "Please provide project_id, description, and notes" });
+    } else {
+        Actions.insert(req.body)
+            .then(action => {
+                res.status(201).json(action);
+            })
+            .catch(err => {
+                res.status(500).json({ error: "Error adding action" });
+            })
+    }
 })
 
 
